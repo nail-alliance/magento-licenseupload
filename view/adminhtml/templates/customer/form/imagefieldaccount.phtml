@@ -1,0 +1,10 @@
+<fieldset class="fieldset create account" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+    <legend class="legend">
+        <span><?php /* @escapeNotVerified */echo __('Professional License') ?></span>
+    </legend>
+    <?php if ($url = $block->getFileUrl()): ?>
+    <div class="field">
+        <img src="<?php echo $url ?>" alt="License" />
+    </div>
+    <?php endif;?>
+</fieldset>

@@ -1,0 +1,74 @@
+<fieldset class="fieldset file-upload">
+    <div class="field customer_file_upload">
+        <label for="license_image" class="label"><span><?php /* @escapeNotVerified */ echo __('Upload professional certification - we can accept PDF') ?></span></label>
+        <div class="control">
+            <input type="file" name="license_image" id="license_image" title="<?php /* @escapeNotVerified */ echo __('Proof of License') ?>" class="input-text" data-validate='{"required":true, "validate-fileextensions":true, "validate-filesize":true}' required">
+        </div>
+    </div>
+    <p>Note: The registrant must either upload document or tick box</p>
+</fieldset>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'jquery/ui',
+        'jquery/validate',
+        'mage/translate'
+    ], function($) {
+        //Validate Image FileSize        
+        $.validator.addMethod(
+            'validate-filesize',
+            function(v, elm) {
+                var maxSize = 2 * 102400;
+                if (navigator.appName == "Microsoft Internet Explorer") {
+                    if (elm.value) {
+                        var oas = new ActiveXObject("Scripting.FileSystemObject");
+                        var e = oas.getFile(elm.value);
+                        var size = e.size;
+                    }
+                } else {
+                    if (elm.files[0] != undefined) {
+                        size = elm.files[0].size;
+                    }
+                }
+                if (size != undefined && size > maxSize) {
+                    return false;
+                }
+                return true;
+            }, $.mage.__('The file size should not exceed 2MB.'));
+        //Validate Image Extensions
+        $.validator.addMethod(
+            'validate-fileextensions',
+            function(v, elm) {
+
+                //var extensions = ['jpeg', 'jpg', 'pdf'];
+                var extensions = ['pdf'];
+                if (!v) {
+                    return true;
+                }
+                with(elm) {
+                    var ext = value.substring(value.lastIndexOf('.') + 1);
+                    for (i = 0; i < extensions.length; i++) {
+                        if (ext == extensions[i]) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }, $.mage.__("The submitted file's type is not allowed. Please use one of the supported formats."));
+
+        let proBox = document.getElementById('customer_will_email_license');
+        proBox.addEventListener("click", () => {
+            let licenseImage = document.getElementById('license_image');
+            if (proBox.checked == true) {
+                licenseImage.required = false;
+                jQuery(".file-upload").slideUp([480]);
+                // document.querySelector(".file-upload").style.display = "none";
+            } else {
+                let licenseImage = document.getElementById('license_image');
+                licenseImage.required = true;
+                jQuery(".file-upload").slideDown([480]);
+                // document.querySelector(".file-upload").style.display = "none";
+            }
+        });
+    });
+</script>

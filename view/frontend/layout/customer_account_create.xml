@@ -1,0 +1,16 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="form.additional.info">
+            <block class="Magento\Framework\View\Element\Template" name="custom_additional_field_register" template="Nailalliance_LicenseUpload::customer/form/imagefieldregister.phtml">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">998</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="form.additional.info">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="EmailLicenseAttribute2"
+                   template="Nailalliance_EmailLicenseAttribute2::will_email.phtml"/>
+        </referenceContainer>
+    </body>
+</page>
